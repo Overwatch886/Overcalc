@@ -1,5 +1,6 @@
 package com.overcalc.app;
 
+
 public class CalculatorEngine {
     public double add(double num1, double num2){
         return num1 + num2;
@@ -19,7 +20,10 @@ public class CalculatorEngine {
         }
     }
     public long factorial(int n){
-        if (n == 1 || n == 0){
+        if (n<0) {
+            throw new IllegalArgumentException("Factorial of a negative number is infinity");
+        }
+        else if (n == 1 || n == 0) {
             return 1;
         }
         else {

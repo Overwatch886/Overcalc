@@ -76,7 +76,12 @@ public class MainActivity extends AppCompatActivity {
                     double num1 = Double.parseDouble(etNum1.getText().toString());
                     double num2 = Double.parseDouble(etNum2.getText().toString());
                     double result = engine.divide(num1, num2);
-                    tvResult.setText(String.valueOf(result));
+                    if (Double.isNaN(result)){
+                        tvResult.setText("You can't divide by zero");
+                    }
+                    else{
+                        tvResult.setText(String.valueOf(result));
+                    }
                 }
                 catch (NumberFormatException e){
                     tvResult.setText("Enter Valid Numbers!");
@@ -88,11 +93,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v){
                 try {
                     int num1 = Integer.parseInt(etNum1.getText().toString());
+                    //if (num1<0)
                     long result = engine.factorial(num1);
                     tvResult.setText(String.valueOf(result));
                 }
                 catch (NumberFormatException e){
                     tvResult.setText("Enter Valid Numbers!");
+                }
+                catch (IllegalArgumentException e){
+                    tvResult.setText(e.getMessage());
                 }
             }
         });
