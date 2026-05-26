@@ -4,28 +4,108 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <EditText
-            android:id="@+id/etNum1"
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter the first number"
-            android:inputType="numberDecimal" />
-    <EditText
-            android:id="@+id/etNum2"
+            android:orientation="horizontal">
+
+
+        <EditText
+                android:id="@+id/etCalculation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:hint="Enter the first number"
+                android:inputType="numberDecimal" />
+        <TextView
+                android:id="@+id/tvResult"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="results here"/>
+    </LinearLayout>
+
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter the second number"
-            android:inputType="numberDecimal" />
+            android:orientation="horizontal">
+
+        <Button
+                android:id="@+id/btnFactorial"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="!"/>
+        <Button
+                android:id="@+id/btnClear"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Clear"/>
+
+
+
+    </LinearLayout>
+
+
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
         <Button
-            android:id="@+id/btnAdd"
-            android:layout_width="0dp"
+                android:id="@+id/btnNum1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="1"/>
+        <Button
+                android:id="@+id/btnNum2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="2"/>
+        <Button
+                android:id="@+id/btnNum3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="3"/>
+        <Button
+                android:id="@+id/btnAdd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="+"/>
+        <Button
+                android:id="@+id/btnMultiply"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="×"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="+"/>
+            android:orientation="horizontal">
+        <Button
+                android:id="@+id/btnNum4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="4"/>
+        <Button
+                android:id="@+id/btnNum5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="5"/>
+        <Button
+                android:id="@+id/btnNum6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="6"/>
         <Button
                 android:id="@+id/btnSubtract"
                 android:layout_width="0dp"
@@ -33,29 +113,51 @@
                 android:layout_weight="1"
                 android:text="-"/>
         <Button
-                android:id="@+id/btnMultiply"
+                android:id="@+id/btnDivide"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="×"/>
-        <Button
-            android:id="@+id/btnDivide"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="÷"/>
-        <Button
-                android:id="@+id/btnFactorial"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="!"/>
+                android:text="÷"/>
+
     </LinearLayout>
-    <TextView
-            android:id="@+id/tvResult"
+
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="The results would be displayed here"/>
+            android:orientation="horizontal">
+        <Button
+                android:id="@+id/btnNum7"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="7"/>
+        <Button
+                android:id="@+id/btnNum8"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="8"/>
+        <Button
+                android:id="@+id/btnNum9"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="9"/>
+        <Button
+                android:id="@+id/btnNum0"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="0"/>
+        <Button
+                android:id="@+id/btnSolve"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="="/>
+
+    </LinearLayout>
+
 
 </LinearLayout>
 

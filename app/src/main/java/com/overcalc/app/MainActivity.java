@@ -1,110 +1,150 @@
 package com.overcalc.app;
 
 import android.os.Bundle;
-import android.view.View;
+
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
-    EditText etNum1, etNum2;
-    Button btnAdd, btnSubtract, btnMultiply, btnDivide, btnFactorial;
+    EditText etCalculation;
+    Button btnAdd, btnSubtract, btnMultiply, btnDivide, btnFactorial, btnClear, btnSolve,
+    btnNum0, btnNum1, btnNum2, btnNum3, btnNum4, btnNum5, btnNum6, btnNum7, btnNum8, btnNum9;
     TextView tvResult;
     CalculatorEngine engine;
+    double firstNumber = 0;
+    String currentOperation = "";
+    boolean operationSelected = false;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        engine = new CalculatorEngine();
-        etNum1 = (EditText) findViewById(R.id.etNum1);
-        etNum2 = (EditText) findViewById(R.id.etNum2);
-        btnAdd = (Button) findViewById(R.id.btnAdd);
-        btnDivide = (Button) findViewById(R.id.btnDivide);
-        btnSubtract = (Button) findViewById(R.id.btnSubtract);
-        btnMultiply = (Button) findViewById(R.id.btnMultiply);
-        btnFactorial = (Button) findViewById(R.id.btnFactorial);
-        tvResult = (TextView) findViewById(R.id.tvResult);
+    double result;
+    double secondNumber;
 
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
+    private void appendDigit(String digit){
+        if (operationSelected){
+            etCalculation.setText(digit);
+            operationSelected = false;
+        }
+        else{
+            etCalculation.append(digit);
+        }
+    }
+
+    private void selectOperation(String operator){
+        operationSelected = true;
+        firstNumber = Double.parseDouble(etCalculation.getText().toString());
+        currentOperation = operator;
+
+        }
+
+    private void clearScreen(){
+        firstNumber = 0;
+        currentOperation = "";
+        operationSelected = false;
+        etCalculation.setText("");
+    }
+
+    private void solve() {
+        operationSelected = false;
+        secondNumber = Double.parseDouble(etCalculation.getText().toString());
+        switch (currentOperation) {
+            case "+":
+                result = engine.add(firstNumber, secondNumber);
+                tvResult.setText(String.valueOf(result));
+                break;
+            case "-":
+                result = engine.subtract(firstNumber, secondNumber);
+                tvResult.setText(String.valueOf(result));
+                break;
+            case "/":
                 try {
-                    double num1 = Double.parseDouble(etNum1.getText().toString());
-                    double num2 = Double.parseDouble(etNum2.getText().toString());
-                    double result = engine.add(num1, num2);
-                    tvResult.setText(String.valueOf(result));
-                }
-                catch (NumberFormatException e){
-                    tvResult.setText("Enter Valid Numbers!");
-                }
-            }
-        });
-        btnSubtract.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                try {
-                    double num1 = Double.parseDouble(etNum1.getText().toString());
-                    double num2 = Double.parseDouble(etNum2.getText().toString());
-                    double result = engine.subtract(num1, num2);
-                    tvResult.setText(String.valueOf(result));
-                }
-                catch (NumberFormatException e){
-                    tvResult.setText("Enter Valid Numbers!");
-                }
-            }
-        });
-        btnMultiply.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                try {
-                    double num1 = Double.parseDouble(etNum1.getText().toString());
-                    double num2 = Double.parseDouble(etNum2.getText().toString());
-                    double result = engine.multiply(num1, num2);
-                    tvResult.setText(String.valueOf(result));
-                }
-                catch (NumberFormatException e){
-                    tvResult.setText("Enter Valid Numbers!");
-                }
-            }
-        });
-        btnDivide.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                try {
-                    double num1 = Double.parseDouble(etNum1.getText().toString());
-                    double num2 = Double.parseDouble(etNum2.getText().toString());
-                    double result = engine.divide(num1, num2);
-                    if (Double.isNaN(result)){
-                        tvResult.setText("You can't divide by zero");
+                    result = engine.divide(firstNumber, secondNumber);
+                    if (Double.isNaN(result)) {
+                        tvResult.setText("Division by zero is undefined!");
                     }
-                    else{
+                    else {
                         tvResult.setText(String.valueOf(result));
                     }
                 }
                 catch (NumberFormatException e){
                     tvResult.setText("Enter Valid Numbers!");
                 }
-            }
-        });
-        btnFactorial.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
+                break;
+            case "*":
+                result = engine.multiply(firstNumber, secondNumber);
+                tvResult.setText(String.valueOf(result));
+                break;
+            case "!":
+                // Just remembered the layout wouldn't allow us input negatives in the first place
                 try {
-                    int num1 = Integer.parseInt(etNum1.getText().toString());
-                    //if (num1<0)
-                    long result = engine.factorial(num1);
+                    result = engine.factorial((int) firstNumber);
                     tvResult.setText(String.valueOf(result));
                 }
                 catch (NumberFormatException e){
                     tvResult.setText("Enter Valid Numbers!");
                 }
                 catch (IllegalArgumentException e){
-                    tvResult.setText(e.getMessage());
+                    tvResult.setText("Factorial of a Negative Number is Infinity");
                 }
-            }
-        });
+        }
 
+        etCalculation.setText(firstNumber + " " + currentOperation + " " + secondNumber +" ="  );
+        firstNumber = 0;
+        currentOperation = "";
+        secondNumber = 0;
+        operationSelected = true;
+        //TODO:Calculator needs to be relative more than just two inputs. If I give more than one input, it only works on the last two.
     }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        engine = new CalculatorEngine();
+        etCalculation = findViewById(R.id.etCalculation);
+
+        btnNum0 = findViewById(R.id.btnNum0);
+        btnNum1 = findViewById(R.id.btnNum1);
+        btnNum2 = findViewById(R.id.btnNum2);
+        btnNum3 = findViewById(R.id.btnNum3);
+        btnNum4 = findViewById(R.id.btnNum4);
+        btnNum5 = findViewById(R.id.btnNum5);
+        btnNum6 = findViewById(R.id.btnNum6);
+        btnNum7 = findViewById(R.id.btnNum7);
+        btnNum8 = findViewById(R.id.btnNum8);
+        btnNum9 = findViewById(R.id.btnNum9);
+
+        btnAdd = findViewById(R.id.btnAdd);
+        btnDivide = findViewById(R.id.btnDivide);
+        btnSubtract = findViewById(R.id.btnSubtract);
+        btnMultiply = findViewById(R.id.btnMultiply);
+        btnFactorial = findViewById(R.id.btnFactorial);
+        btnClear = findViewById(R.id.btnClear);
+        btnSolve = findViewById(R.id.btnSolve);
+        tvResult = findViewById(R.id.tvResult);
+
+
+
+        btnNum0.setOnClickListener(v -> appendDigit("0"));
+        btnNum1.setOnClickListener(v -> appendDigit("1"));
+        btnNum2.setOnClickListener(v -> appendDigit("2"));
+        btnNum3.setOnClickListener(v -> appendDigit("3"));
+        btnNum4.setOnClickListener(v -> appendDigit("4"));
+        btnNum5.setOnClickListener(v -> appendDigit("5"));
+        btnNum6.setOnClickListener(v -> appendDigit("6"));
+        btnNum7.setOnClickListener(v -> appendDigit("7"));
+        btnNum8.setOnClickListener(v -> appendDigit("8"));
+        btnNum9.setOnClickListener(v -> appendDigit("9"));
+
+        btnAdd.setOnClickListener(v -> selectOperation("+"));
+        btnSubtract.setOnClickListener(v -> selectOperation("-"));
+        btnMultiply.setOnClickListener(v -> selectOperation("*"));
+        btnDivide.setOnClickListener(v -> selectOperation("/"));
+        btnFactorial.setOnClickListener(v -> selectOperation("!"));
+
+
+        btnClear.setOnClickListener(v -> clearScreen());
+        btnSolve.setOnClickListener(v -> solve());
+
+}
 }
